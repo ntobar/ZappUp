@@ -40,10 +40,12 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current);
 
+
 //        mTextMessage = (TextView) findViewById(R.id.message);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
 //        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setOnNavigationItemSelectedListener(this);
+        loadFragment(new HomeFragment());
     }
 
     private boolean loadFragment(Fragment toLoad) {
