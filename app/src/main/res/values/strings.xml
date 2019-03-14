@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">woke</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Alarms</string>
+    <string name="title_notifications">My Devices</string>
+    <string name="title_activity_spash">SplashActivity</string>
+    <string name="woke">W O K E</string>
+    <string name="setupText"> Current Setup </string>
+    <string name="myAlarmsText"> My Alarms </string>
+    <string name="title_activity_current">CurrentActivity</string>
+</resources>
