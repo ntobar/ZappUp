@@ -9,6 +9,6 @@
     <string name="myAlarmsText"> My Alarms </string>
     <string name="title_activity_current">CurrentActivity</string>
     <string name="setupID">Current Setup</string>
-    <string name="alarmsString">Alarms</string>
-    <string name="devicesString">Devices</string>
+    <string name="alarmsString">My Alarms</string>
+    <string name="devicesString">My Devices</string>
 </resources>
