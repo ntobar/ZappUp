@@ -26,7 +26,7 @@ public class SpashActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Toast.makeText(getApplicationContext(), "Loading Woke...", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Loading Zapp Up...", Toast.LENGTH_LONG).show();
 
 
 
@@ -34,7 +34,7 @@ public class SpashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent homeIntent = new Intent(SpashActivity.this, StartingActivity.class);
+                Intent homeIntent = new Intent(SpashActivity.this, AlarmActivity.class);
                 startActivity(homeIntent);
                 finish();
 

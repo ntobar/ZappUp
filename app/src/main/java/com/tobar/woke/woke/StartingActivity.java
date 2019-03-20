@@ -25,7 +25,7 @@ public class StartingActivity extends AppCompatActivity implements View.OnClickL
                 Intent toSignUpIntent = new Intent(StartingActivity.this, LoginActivity.class);
                 startActivity(toSignUpIntent);
                 break;
-            
+
         }
 
     }
