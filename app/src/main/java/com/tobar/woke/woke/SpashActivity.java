@@ -34,7 +34,7 @@ public class SpashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent homeIntent = new Intent(SpashActivity.this, AlarmActivity.class);
+                Intent homeIntent = new Intent(SpashActivity.this, CurrentActivity.class);
                 startActivity(homeIntent);
                 finish();
 
