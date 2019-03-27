@@ -6,4 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".NewAlarmClockActivity">
 
+
+
+    <TimePicker
+        style="@style/TimePickerTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/alarmTimePicker"
+        android:background="#353839"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+
+
 </android.support.constraint.ConstraintLayout>
