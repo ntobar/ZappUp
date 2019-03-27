@@ -85,7 +85,7 @@ public class AlarmActivity extends Activity {
             pendingIntent = PendingIntent.getBroadcast(AlarmActivity.this, 0, myIntent, 0);
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
-            alarmManager.cancel(pendingIntent);
+            alarmManager.cancel (pendingIntent);
             setAlarmText("");
             Log.d("MyActivity", "Alarm Off");
         }
