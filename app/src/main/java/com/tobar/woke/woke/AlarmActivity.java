@@ -64,7 +64,8 @@ public class AlarmActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_alarm);
+//        setContentView(R.layout.activity_alarm);
+        setContentView(R.layout.activity_new_alarm_clock);
         alarmTimePicker = (TimePicker) findViewById(R.id.alarmTimePicker);
         alarmTextView = (TextView) findViewById(R.id.alarmText);
         ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);

@@ -25,7 +25,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
     <ImageButton
-        android:id="@+id/imageButton3"
+        android:id="@+id/addAlarmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/divider3"
@@ -33,5 +33,14 @@
         android:layout_marginBottom="-59dp"
         android:layout_marginEnd="17dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <Button
+        android:id="@+id/randomButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:text="Button" />
 
 </RelativeLayout>
