@@ -22,6 +22,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="Alarms"
+        android:textColor="#fff"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
     <Button
@@ -32,6 +33,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="-59dp"
         android:layout_marginEnd="14dp"
-        android:text="Button" />
+        android:text="Add Alarm" />
 
 </RelativeLayout>

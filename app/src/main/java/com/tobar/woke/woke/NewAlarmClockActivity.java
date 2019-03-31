@@ -178,14 +178,17 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
         //ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
         Switch alarmToggle = (Switch) findViewById(R.id.alarm_on);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        //Initialize Text Time Update
+        updateText = (TextView) findViewById(R.id.alarmIndicator);
     }
 
     public void onToggleClicked(View view) {
 //        if (((ToggleButton) view).isChecked()) {
         if (((Switch) view).isChecked()) {
             Log.d("MyActivity", "Alarm On at " + alarmTimePicker.getCurrentHour() + ": " + alarmTimePicker.getCurrentMinute());
-
-            this.storeTime = timeConversion(timePicker.getCurrentHour(), timePicker.getCurrentMinute());
+//
+            storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
             setAlarmText("Alarm Set for: " + storeTime);
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
@@ -197,7 +200,7 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
-            //setAlarmText("");
+            setAlarmText("Alarm Turned Off");
             Log.d("MyActivity", "Alarm Off");
         }
     }
