@@ -59,6 +59,8 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
     private boolean loadFragment(Fragment toLoad) {
         if(toLoad != null) {
 
+
+
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, toLoad).commit();
 
