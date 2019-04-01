@@ -1,4 +1,4 @@
-package com.tobar.woke.woke.Alarm;
+package com.tobar.woke.woke.AlarmDevelopment;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -147,6 +147,15 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
                 break;
 
+            case R.id.addAlarmID:
+
+
+
+
+                break;
+
+
+
         }
     }
 
@@ -195,10 +204,12 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
     public void onToggleClicked(View view) {
 //        if (((ToggleButton) view).isChecked()) {
         if (((Switch) view).isChecked()) {
-            Log.d("MyActivity", "Alarm On at " + alarmTimePicker.getCurrentHour() + ": " + alarmTimePicker.getCurrentMinute());
+
+            storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
+            Log.d("MyActivity", "Alarm On at " + storeTime);
 
 //
-            storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
+
 
             Toast.makeText(getApplicationContext(), "Alarm added for " + storeTime, Toast.LENGTH_SHORT).show();
 

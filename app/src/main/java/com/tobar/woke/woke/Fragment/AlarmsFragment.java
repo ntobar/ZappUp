@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.tobar.woke.woke.Alarm.NewAlarmClockActivity;
+import com.tobar.woke.woke.AlarmDevelopment.NewAlarmClockActivity;
 import com.tobar.woke.woke.R;
 
 //implements View.OnClickListener
