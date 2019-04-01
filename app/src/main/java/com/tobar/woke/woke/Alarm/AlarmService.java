@@ -1,4 +1,4 @@
-package com.tobar.woke.woke;
+package com.tobar.woke.woke.Alarm;
 
 
 import android.app.IntentService;
@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+
+import com.tobar.woke.woke.Alarm.NewAlarmClockActivity;
+import com.tobar.woke.woke.R;
 
 public class AlarmService extends IntentService {
     private NotificationManager alarmNotificationManager;

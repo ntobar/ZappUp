@@ -1,4 +1,4 @@
-package com.tobar.woke.woke;
+package com.tobar.woke.woke.Alarm;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -10,20 +10,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.ToggleButton;
-import android.widget.Toolbar;
+import android.widget.Toast;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import com.tobar.woke.woke.R;
+
 import java.util.Calendar;
-import java.util.Date;
 
 //implements View.OnClickListener
 
+/**
+ * This Class represents an Alarm Clock and manages everything related to it:
+ * - Setting an Alarm and its Snoozes
+ * - Adding the Alarm
+ */
 public class NewAlarmClockActivity extends AppCompatActivity implements View.OnClickListener {
     AlarmManager alarmManager;
     TimePicker timePicker;
@@ -117,6 +119,8 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.alarm_on:
+
+
                 System.out.println("hours: " + timePicker.getHour());
 
 
@@ -146,6 +150,11 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+
+    /**
+     * Changes the text that displays the current Alarm state: Off or Alarm set at Time xx:xx PM/AM.
+     * @param s - The String to replace the current Text.
+     */
     private void setAlarmText(String s) {
 
         updateText.setText(s);
@@ -187,8 +196,12 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 //        if (((ToggleButton) view).isChecked()) {
         if (((Switch) view).isChecked()) {
             Log.d("MyActivity", "Alarm On at " + alarmTimePicker.getCurrentHour() + ": " + alarmTimePicker.getCurrentMinute());
+
 //
             storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
+
+            Toast.makeText(getApplicationContext(), "Alarm added for " + storeTime, Toast.LENGTH_SHORT).show();
+
             setAlarmText("Alarm Set for: " + storeTime);
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
@@ -200,6 +213,7 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
+            Toast.makeText(getApplicationContext(), "Alarm Cancelled", Toast.LENGTH_SHORT).show();
             setAlarmText("Alarm Turned Off");
             Log.d("MyActivity", "Alarm Off");
         }

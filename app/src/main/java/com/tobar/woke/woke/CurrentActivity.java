@@ -1,15 +1,15 @@
 package com.tobar.woke.woke;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.TimePicker;
+
+import com.tobar.woke.woke.Fragment.AlarmsFragment;
+import com.tobar.woke.woke.Fragment.DevicesFragment;
+import com.tobar.woke.woke.Fragment.HomeFragment;
 
 public class CurrentActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 

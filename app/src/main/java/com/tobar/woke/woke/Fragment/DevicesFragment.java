@@ -1,4 +1,4 @@
-package com.tobar.woke.woke;
+package com.tobar.woke.woke.Fragment;
 
 
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.tobar.woke.woke.R;
 
 public class DevicesFragment extends Fragment{
 

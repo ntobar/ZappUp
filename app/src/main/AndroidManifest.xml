@@ -31,12 +31,12 @@
         </activity>
 
         <service
-            android:name=".AlarmService"
+            android:name=".Alarm.AlarmService"
             android:enabled="true" />
 
-        <receiver android:name=".AlarmReceiver" />
+        <receiver android:name=".Alarm.AlarmReceiver" />
 
-        <activity android:name=".NewAlarmClockActivity" />
+        <activity android:name=".Alarm.NewAlarmClockActivity" />
         <activity
             android:name=".CurrentActivity"
             android:label="@string/title_activity_current" />
