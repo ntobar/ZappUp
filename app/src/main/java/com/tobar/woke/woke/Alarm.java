@@ -1,16 +1,18 @@
 package com.tobar.woke.woke;
 
 
+import java.util.ArrayList;
+
 /**
  * This class represents a Single Alarm
  */
 public class Alarm {
-    String alarmTime;
-    String alarmState;
-    String numberSnoozes;
-    String snoozeInterval;
+    private String alarmTime;
+    private boolean alarmState;
+    private int numberSnoozes;
+    private int snoozeInterval;
 
-    public Alarm(String alarmTime, String alarmState, String numberSnoozes, String snoozeInterval) {
+    public Alarm(String alarmTime, boolean alarmState, int numberSnoozes, int snoozeInterval) {
 
         this.alarmTime = alarmTime;
         this.alarmState = alarmState;
@@ -21,19 +23,21 @@ public class Alarm {
 
     }
 
+
+
     public String getAlarmTime() {
         return alarmTime;
     }
 
-    public String getAlarmState() {
+    public boolean getAlarmState() {
         return alarmState;
     }
 
-    public String getNumberSnoozes() {
+    public int getNumberSnoozes() {
         return numberSnoozes;
     }
 
-    public String getSnoozeInterval() {
+    public int getSnoozeInterval() {
         return snoozeInterval;
     }
 }

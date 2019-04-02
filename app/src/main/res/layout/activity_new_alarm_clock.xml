@@ -8,6 +8,14 @@
     android:background="#0076A3">
 
 
+    <FrameLayout
+        android:id="@+id/aaactivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+
 
     <TimePicker
         style="@style/TimePickerTheme"
@@ -127,6 +135,14 @@
         app:layout_constraintTop_toTopOf="@+id/alarmTimePicker"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/ic_input_delete" />
+
+    <FrameLayout
+        android:layout_width="92dp"
+        android:layout_height="459dp"
+        tools:layout_editor_absoluteX="186dp"
+        tools:layout_editor_absoluteY="44dp">
+
+    </FrameLayout>
 
 
 </android.support.constraint.ConstraintLayout>

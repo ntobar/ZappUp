@@ -1,20 +1,26 @@
 package com.tobar.woke.woke.AlarmDevelopment;
 
 import android.app.AlarmManager;
+import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.tobar.woke.woke.Alarm;
+import com.tobar.woke.woke.Fragment.AlarmsFragment;
 import com.tobar.woke.woke.R;
 
 import java.util.Calendar;
@@ -32,6 +38,14 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
     TextView updateText;
     Context context;
     String storeTime;
+    int nSnoozes;
+    int snoozeInterval;
+
+    public void setAlarmsFragment(AlarmsFragment alarmsFragment) {
+        this.alarmsFragment = alarmsFragment;
+    }
+
+    AlarmsFragment alarmsFragment;
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -149,6 +163,51 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
             case R.id.addAlarmID:
 
+                System.out.println("reached ADD ALARM BUTTON");
+
+
+
+                //TAKE INTO ACCOUNT EXCEPTIONS.  NEED to handle things seperately
+                //TODO: Handle exceptions individually when creating an alarm
+
+
+                //ADD TRY CATCH WHEN DONE
+
+
+
+                //USE THIS WHEN DONE
+//                this.alarmsFragment.getMyDataset().add(
+//                        new Alarm(this.storeTime,true ,this.nSnoozes,this.snoozeInterval));
+
+
+                //USING 0 for values of snoozes for testing
+
+                //storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
+                this.alarmsFragment.getMyDataset().add(
+                        new Alarm(this.storeTime,true ,0,0));
+
+
+
+
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.aaactivity, this.alarmsFragment);
+//                transaction.commit();
+
+                FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                //FragmentTransaction transaction = manager.beginTransaction();
+//                transaction.replace(R.id.aaactivity, this.alarmsFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+
+                transaction.replace(R.id.container, alarmsFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+
+
+                //oadFragment(this.alarmsFragment);
+
 
 
 
@@ -157,6 +216,24 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
 
         }
+    }
+
+
+    private boolean loadFragment(Fragment toLoad) {
+        if(toLoad != null) {
+
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+
+
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(this., toLoad).commit();
+
+            return true;
+        }
+
+        return false;
+
     }
 
 
@@ -197,6 +274,11 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
         Switch alarmToggle = (Switch) findViewById(R.id.alarm_on);
         alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
+        Button addAlarmButton = (Button) findViewById(R.id.addAlarmID);
+        addAlarmButton.setOnClickListener(this);
+
+        alarmsFragment = new AlarmsFragment();
+
         //Initialize Text Time Update
         updateText = (TextView) findViewById(R.id.alarmIndicator);
     }
@@ -224,6 +306,7 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
             alarmManager.cancel(pendingIntent);
+            storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
             Toast.makeText(getApplicationContext(), "Alarm Cancelled", Toast.LENGTH_SHORT).show();
             setAlarmText("Alarm Turned Off");
             Log.d("MyActivity", "Alarm Off");
