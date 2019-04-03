@@ -1,5 +1,6 @@
 package com.tobar.woke.woke;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +11,8 @@ import android.view.MenuItem;
 import com.tobar.woke.woke.Fragment.AlarmsFragment;
 import com.tobar.woke.woke.Fragment.DevicesFragment;
 import com.tobar.woke.woke.Fragment.HomeFragment;
+
+import java.util.ArrayList;
 
 public class CurrentActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -53,7 +56,51 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
         BottomNavigationView navigation = findViewById(R.id.navigation);
 //        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setOnNavigationItemSelectedListener(this);
-        loadFragment(new HomeFragment());
+
+
+        //CHECK BUNDLE
+        Bundle extras = getIntent().getExtras();
+
+
+        Fragment fragment;
+
+        if(extras != null) {
+
+            AlarmsFragment alarmsFragment = new AlarmsFragment();
+
+            String alarmTime = extras.getString("alarmTime");
+            boolean alarmState = extras.getBoolean("alarmState");
+            int alarmSnoozes = extras.getInt("alarmSnoozes");
+            int alarmInterval = extras.getInt("alarmInterval");
+
+            Alarm newAlarm = new Alarm(alarmTime, alarmState, alarmSnoozes, alarmInterval);
+            System.out.println(alarmTime + " " + alarmState + " " + alarmSnoozes + " " + alarmInterval);
+            System.out.println("Dataset: " +  alarmsFragment.getMyDataset());
+
+            alarmsFragment.getMyDataset().add(newAlarm);
+
+
+
+
+
+            loadFragment(alarmsFragment);
+
+
+        } else {
+
+            fragment = new HomeFragment();
+
+
+            loadFragment(fragment);
+
+
+        }
+
+
+
+
+
+
     }
 
     private boolean loadFragment(Fragment toLoad) {
@@ -83,6 +130,7 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
 
             case R.id.navigation_dashboard:
                 fragment = new AlarmsFragment();
+//                ArrayList<Alarm> alarm = (AlarmsFragment) fragment.
                 break;
 
             case R.id.navigation_notifications:

@@ -24,6 +24,7 @@ import com.tobar.woke.woke.CurrentActivity;
 import com.tobar.woke.woke.Fragment.AlarmsFragment;
 import com.tobar.woke.woke.R;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 //implements View.OnClickListener
@@ -39,14 +40,10 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
     TextView updateText;
     Context context;
     String storeTime;
+    boolean alarmState;
     int nSnoozes;
     int snoozeInterval;
 
-    public void setAlarmsFragment(AlarmsFragment alarmsFragment) {
-        this.alarmsFragment = alarmsFragment;
-    }
-
-    AlarmsFragment alarmsFragment;
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +139,8 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
                 this.storeTime = timeConversion(timePicker.getHour(), timePicker.getMinute());
                 setAlarmText(storeTime);
 
+                this.alarmState = true;
+
                 //Chaning udpate text box
 
 //                setAlarmText("Alarm set for " + timeConversion(timePicker.getHour(), timePicker.getMinute()));
@@ -158,6 +157,8 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
                 setAlarmText("Alarm Off!");
                 storeTime = "";
+
+                this.alarmState = false;
 
 
                 break;
@@ -187,7 +188,21 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 //                this.alarmsFragment.getMyDataset().add(
 //                        new Alarm(this.storeTime,true ,0,0));
 
+
+                storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
+
+
+
+
+//                Alarm newAlarm = new Alarm(storeTime, alarmState, nSnoozes, snoozeInterval);
+
                 Intent alarmIntent = new Intent(this, CurrentActivity.class);
+
+                alarmIntent.putExtra("alarmTime", storeTime);
+                alarmIntent.putExtra("alarmState", alarmState);
+                alarmIntent.putExtra("alarmSnoozes", nSnoozes);
+                alarmIntent.putExtra("alarmInterval", snoozeInterval);
+
                 startActivity(alarmIntent);
 
 
@@ -197,8 +212,8 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 //                transaction.replace(R.id.aaactivity, this.alarmsFragment);
 //                transaction.commit();
 
-                FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                FragmentManager manager = getFragmentManager();
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 //FragmentTransaction transaction = manager.beginTransaction();
 //                transaction.replace(R.id.aaactivity, this.alarmsFragment);
 //                transaction.addToBackStack(null);
@@ -281,7 +296,11 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
         Button addAlarmButton = (Button) findViewById(R.id.addAlarmID);
         addAlarmButton.setOnClickListener(this);
 
-        alarmsFragment = new AlarmsFragment();
+
+        this.storeTime = "";
+        this.alarmState = false;
+        this.nSnoozes = 0;
+        this.snoozeInterval = 0;
 
         //Initialize Text Time Update
         updateText = (TextView) findViewById(R.id.alarmIndicator);
@@ -304,12 +323,17 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
             calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
             calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
 
+//            Intent intent = new Intent(this, Mote.class);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1253, intent, 0);
+//            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//            alarmManager.cancel(pendingIntent);
+
 
             Intent myIntent = new Intent(NewAlarmClockActivity.this, AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(NewAlarmClockActivity.this, 0, myIntent, 0);
             alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
         } else {
-            alarmManager.cancel(pendingIntent);
+            alarmManager.cancel(pendingIntent); // CANCELS THE ALARM
             storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
             Toast.makeText(getApplicationContext(), "Alarm Cancelled", Toast.LENGTH_SHORT).show();
             setAlarmText("Alarm Turned Off");

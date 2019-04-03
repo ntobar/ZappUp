@@ -46,6 +46,8 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
 
 
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +58,8 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.alarmRecyclerView);
 
-        myDataset = new ArrayList<>();
+
+        System.out.println("myDataSet on Createview==1: " + myDataset);
 
 
         // use this setting to improve performance if you know that changes
@@ -68,11 +71,14 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(layoutManager);
 
 
+        myDataset = new ArrayList<>();
+
+        System.out.println("myDataSet on Createview==2: " + myDataset);
+
         // specify an adapter (see also next example)
         mAdapter = new AlarmListAdapter(myDataset);
         recyclerView.setAdapter(mAdapter);
 
-        System.out.println(this.getActivity() + " = activity");
 
 
 

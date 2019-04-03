@@ -22,8 +22,10 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.MyVi
         public TextView numberSnoozes;
         public TextView snoozeInterval;
 
+
         public MyViewHolder(View itemView) {
             super(itemView);
+
 
             alarmTime = itemView.findViewById(R.id.alarm_time);
             alarmState = itemView.findViewById(R.id.alarm_state);
@@ -34,7 +36,8 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.MyVi
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public AlarmListAdapter(ArrayList<Alarm> myDataset) {
-        mDataset = myDataset;
+        this.mDataset = myDataset;
+        System.out.println("MyDataSet in AlarmListAdapter:: " + mDataset);
     }
 
     // Create new views (invoked by the layout manager)
@@ -45,6 +48,10 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.MyVi
 //                .inflate(R.layout.my_text_view, parent, false);
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_alarms, parent, false);
+
+
+        System.out.println("dataset in oncreateviewholder::== " + mDataset);
+
 
         View alarmView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.alarm_item, parent, false);
@@ -59,6 +66,8 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.MyVi
         // - replace the contents of the view with that element
 
         Alarm alarm = mDataset.get(position);
+
+        System.out.println("MyDataSet in AlarmListAdapter in ONBINDVIEWHOLDER:: " + mDataset);
 
 
         // Set item views based on your views and data model
