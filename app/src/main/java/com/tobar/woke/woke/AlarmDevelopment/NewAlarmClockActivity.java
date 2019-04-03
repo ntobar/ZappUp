@@ -20,6 +20,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.tobar.woke.woke.Alarm;
+import com.tobar.woke.woke.CurrentActivity;
 import com.tobar.woke.woke.Fragment.AlarmsFragment;
 import com.tobar.woke.woke.R;
 
@@ -183,8 +184,11 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
                 //USING 0 for values of snoozes for testing
 
                 //storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
-                this.alarmsFragment.getMyDataset().add(
-                        new Alarm(this.storeTime,true ,0,0));
+//                this.alarmsFragment.getMyDataset().add(
+//                        new Alarm(this.storeTime,true ,0,0));
+
+                Intent alarmIntent = new Intent(this, CurrentActivity.class);
+                startActivity(alarmIntent);
 
 
 
@@ -200,9 +204,9 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 //                transaction.addToBackStack(null);
 //                transaction.commit();
 
-                transaction.replace(R.id.container, alarmsFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+//                transaction.replace(R.id.container, alarmsFragment);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
 
 
 

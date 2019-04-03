@@ -72,6 +72,8 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
         mAdapter = new AlarmListAdapter(myDataset);
         recyclerView.setAdapter(mAdapter);
 
+        System.out.println(this.getActivity() + " = activity");
+
 
 
 
