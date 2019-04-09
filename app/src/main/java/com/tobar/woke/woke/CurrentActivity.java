@@ -77,7 +77,9 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
             System.out.println(alarmTime + " " + alarmState + " " + alarmSnoozes + " " + alarmInterval);
             System.out.println("Dataset: " +  alarmsFragment.getMyDataset());
 
-            alarmsFragment.getMyDataset().add(newAlarm);
+
+
+            boolean ss = alarmsFragment.getMyDataset().add(newAlarm);
 
 
 
@@ -130,6 +132,8 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
 
             case R.id.navigation_dashboard:
                 fragment = new AlarmsFragment();
+                AlarmsFragment s = (AlarmsFragment) fragment;
+                System.out.println("dataset nav: " + s.getMyDataset());
 //                ArrayList<Alarm> alarm = (AlarmsFragment) fragment.
                 break;
 

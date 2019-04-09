@@ -26,7 +26,7 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Alarm> myDataset;
+    private ArrayList<Alarm> myDataset = new ArrayList<>();
 
 
     //    private boolean loadFragment(Fragment toLoad) {
@@ -71,7 +71,7 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(layoutManager);
 
 
-        myDataset = new ArrayList<>();
+        //myDataset = new ArrayList<>();
 
         System.out.println("myDataSet on Createview==2: " + myDataset);
 
@@ -104,7 +104,7 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
 
 
     public ArrayList<Alarm> getMyDataset() {
-        return myDataset;
+        return this.myDataset;
     }
 
 

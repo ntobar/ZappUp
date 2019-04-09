@@ -46,8 +46,8 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.MyVi
         // create a new view
 //        TextView v = (TextView) LayoutInflater.from(parent.getContext())
 //                .inflate(R.layout.my_text_view, parent, false);
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_alarms, parent, false);
+//        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+//                .inflate(R.layout.fragment_alarms, parent, false);
 
 
         System.out.println("dataset in oncreateviewholder::== " + mDataset);
