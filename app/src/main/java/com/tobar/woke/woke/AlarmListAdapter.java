@@ -29,6 +29,8 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.MyVi
 
             alarmTime = itemView.findViewById(R.id.alarm_time);
             alarmState = itemView.findViewById(R.id.alarm_state);
+
+
             numberSnoozes = itemView.findViewById(R.id.alarm_snoozes);
             snoozeInterval = itemView.findViewById(R.id.alarm_intervals);
         }
@@ -65,17 +67,33 @@ public class AlarmListAdapter extends RecyclerView.Adapter<AlarmListAdapter.MyVi
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
 
+
         Alarm alarm = mDataset.get(position);
+
+        String alarmTime = alarm.getAlarmTime();
+        boolean alarmState = alarm.getAlarmState();
+        int numberSnoozes = alarm.getNumberSnoozes();
+        int snoozeInterval = alarm.getSnoozeInterval();
+
 
         System.out.println("MyDataSet in AlarmListAdapter in ONBINDVIEWHOLDER:: " + mDataset);
 
 
         // Set item views based on your views and data model
-        TextView alarmText = holder.alarmTime;
-        Switch alarmState = holder.alarmState;
-        alarmState.setChecked(alarm.getAlarmState());
-        TextView snoozes = holder.numberSnoozes;
-        TextView interval = holder.snoozeInterval;
+        TextView alarmText1 = holder.alarmTime;
+        Switch alarmState1 = holder.alarmState;
+        //alarmState.setChecked(alarm.getAlarmState());
+        TextView snoozes1 = holder.numberSnoozes;
+        TextView interval1 = holder.snoozeInterval;
+
+
+        alarmText1.setText(alarmTime);
+        alarmState1.setChecked(alarmState);
+        snoozes1.setText(String.valueOf(numberSnoozes));
+        interval1.setText(String.valueOf(snoozeInterval));
+
+
+
 
 
     }

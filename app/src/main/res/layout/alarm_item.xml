@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
+    android:background="@color/background"
     >
 
     <TextView
@@ -13,14 +14,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="#ccc"
         />
-
-    <Switch
-        android:id="@+id/alarm_state"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
 
 
     <TextView
@@ -28,6 +23,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="#ccc"
         />
 
     <TextView
@@ -35,15 +31,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:textColor="#ccc"
         />
 
-    <Button
-        android:id="@+id/message_button"
-        android:layout_width="wrap_content"
+    <Switch
+        android:id="@+id/alarm_state"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="GOODButton"
-        android:textSize="10sp"
-        />
+        android:layout_weight="1" />
+
 </LinearLayout>

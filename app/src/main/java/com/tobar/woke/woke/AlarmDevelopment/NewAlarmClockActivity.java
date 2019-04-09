@@ -132,11 +132,10 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
         switch (view.getId()) {
             case R.id.alarm_on:
 
+                System.out.println("Reached switch button");
 
-                System.out.println("hours: " + timePicker.getHour());
 
-
-                this.storeTime = timeConversion(timePicker.getHour(), timePicker.getMinute());
+                storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
                 setAlarmText(storeTime);
 
                 this.alarmState = true;
@@ -190,6 +189,8 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
 
                 storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
+
+                System.out.print("AlarmState: " + this.alarmState);
 
 
 
@@ -295,6 +296,7 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
         Button addAlarmButton = (Button) findViewById(R.id.addAlarmID);
         addAlarmButton.setOnClickListener(this);
+        alarmToggle.setOnClickListener(this);
 
 
         this.storeTime = "";

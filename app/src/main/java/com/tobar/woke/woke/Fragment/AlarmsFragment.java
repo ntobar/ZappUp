@@ -58,7 +58,6 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.alarmRecyclerView);
 
-
         System.out.println("myDataSet on Createview==1: " + myDataset);
 
 
