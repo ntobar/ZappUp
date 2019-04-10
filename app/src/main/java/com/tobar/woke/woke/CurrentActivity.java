@@ -167,4 +167,12 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
 
         return loadFragment(fragment);
     }
+
+    public ArrayList<Alarm> getDs() {
+        return ds;
+    }
+
+    public void setDs(ArrayList<Alarm> ds) {
+        this.ds = ds;
+    }
 }

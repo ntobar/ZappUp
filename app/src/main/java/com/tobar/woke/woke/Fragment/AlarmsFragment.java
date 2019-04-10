@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +17,9 @@ import android.widget.Button;
 
 import com.tobar.woke.woke.Alarm;
 import com.tobar.woke.woke.AlarmDevelopment.NewAlarmClockActivity;
+import com.tobar.woke.woke.AlarmDevelopment.NewAlarmClockFragment;
 import com.tobar.woke.woke.AlarmListAdapter;
+import com.tobar.woke.woke.CurrentActivity;
 import com.tobar.woke.woke.R;
 import com.tobar.woke.woke.RecyclerView.MyAdapter;
 
@@ -90,6 +93,8 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
 
 
 
+        CurrentActivity myActivity = (CurrentActivity) getActivity();
+        myDataset = myActivity.getDs();
 
         //myDataset = new ArrayList<>();
 
@@ -114,12 +119,40 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
             case R.id.randomButton:
                 //NewAlarmClockActivity alarmClockActivity = new NewAlarmClockActivity();
                 //alarmClockActivity.setAlarmsFragment(this);
-                Intent alarmIntent = new Intent(getActivity(), NewAlarmClockActivity.class);
-                startActivity(alarmIntent);
+                System.out.println("In Alarms fragment on Click random button");
+                Fragment fragment = new NewAlarmClockFragment();
+
+                loadFragment(fragment);
+
+
+//                Intent alarmIntent = new Intent(getActivity(), NewAlarmClockActivity.class);
+//                startActivity(alarmIntent);
 
                 break;
             // ...
         }
+
+    }
+
+
+
+    private boolean loadFragment(Fragment toLoad) {
+        if(toLoad != null) {
+
+            //FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, toLoad).commit();
+
+
+
+//            getSupportFragmentManager().beginTransaction()
+//                    .replace(this., toLoad).commit();
+
+            return true;
+        }
+
+        return false;
 
     }
 
