@@ -15,6 +15,10 @@ import com.tobar.woke.woke.Fragment.HomeFragment;
 import java.util.ArrayList;
 
 public class CurrentActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+    ArrayList<Alarm> ds;
+    AlarmsFragment alarmsFragment;
+    DevicesFragment devicesFragment;
+    HomeFragment homeFragment;
 
     //Start of new stuff
 
@@ -61,12 +65,21 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
         //CHECK BUNDLE
         Bundle extras = getIntent().getExtras();
 
+        System.out.println("NEW CUrREnt ACTiVITY created WANERFEAF++++++++++++");
+
+        alarmsFragment = new AlarmsFragment();
+        homeFragment = new HomeFragment();
+        devicesFragment = new DevicesFragment();
+
 
         Fragment fragment;
+        ds = new ArrayList<>();
 
         if(extras != null) {
 
-            AlarmsFragment alarmsFragment = new AlarmsFragment();
+
+
+            //AlarmsFragment alarmsFragment = new AlarmsFragment();
 
             String alarmTime = extras.getString("alarmTime");
             boolean alarmState = extras.getBoolean("alarmState");
@@ -75,25 +88,31 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
 
             Alarm newAlarm = new Alarm(alarmTime, alarmState, alarmSnoozes, alarmInterval);
             System.out.println(alarmTime + " " + alarmState + " " + alarmSnoozes + " " + alarmInterval);
-            System.out.println("Dataset: " +  alarmsFragment.getMyDataset());
+
+            ds.add(newAlarm);
+
+            System.out.println("ds::-:: " + ds);
+            alarmsFragment.getMyDataset().add(newAlarm);
+
+            System.out.println("Dataset: " +  this.alarmsFragment.getMyDataset());
 
 
 
-            boolean ss = alarmsFragment.getMyDataset().add(newAlarm);
+            //boolean ss = alarmsFragment.getMyDataset().add(newAlarm);
 
 
 
 
 
-            loadFragment(alarmsFragment);
+            loadFragment(this.alarmsFragment);
 
 
         } else {
 
-            fragment = new HomeFragment();
 
 
-            loadFragment(fragment);
+
+            loadFragment(homeFragment);
 
 
         }
@@ -127,18 +146,20 @@ public class CurrentActivity extends AppCompatActivity implements BottomNavigati
 
         switch(menuItem.getItemId()) {
             case R.id.navigation_home:
-                fragment = new HomeFragment();
+                //fragment = new HomeFragment();
+                fragment = homeFragment;
                 break;
 
             case R.id.navigation_dashboard:
-                fragment = new AlarmsFragment();
+                fragment =  alarmsFragment;
                 AlarmsFragment s = (AlarmsFragment) fragment;
                 System.out.println("dataset nav: " + s.getMyDataset());
 //                ArrayList<Alarm> alarm = (AlarmsFragment) fragment.
                 break;
 
             case R.id.navigation_notifications:
-                fragment = new DevicesFragment();
+                //fragment = new DevicesFragment();
+                fragment = devicesFragment;
                 break;
         }
 

@@ -18,15 +18,19 @@ import com.tobar.woke.woke.Alarm;
 import com.tobar.woke.woke.AlarmDevelopment.NewAlarmClockActivity;
 import com.tobar.woke.woke.AlarmListAdapter;
 import com.tobar.woke.woke.R;
+import com.tobar.woke.woke.RecyclerView.MyAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AlarmsFragment extends Fragment implements View.OnClickListener {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private List<Alarm> listItems;
     private ArrayList<Alarm> myDataset = new ArrayList<>();
+    private ArrayList<Alarm> insideDataSet;
 
 
     //    private boolean loadFragment(Fragment toLoad) {
@@ -55,8 +59,12 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
         Button addAlarm = (Button) view.findViewById(R.id.randomButton);
         addAlarm.setOnClickListener(this);
 
+        System.out.println("NEW INSTANCE OF ALARMS FRAGMENT ALERT!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
 
         recyclerView = (RecyclerView) view.findViewById(R.id.alarmRecyclerView);
+
+
 
         System.out.println("myDataSet on Createview==1: " + myDataset);
 
@@ -69,13 +77,27 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
         layoutManager = new LinearLayoutManager(this.getActivity());
         recyclerView.setLayoutManager(layoutManager);
 
+        listItems = new ArrayList<>();
+
+
+
+        for(int i = 0; i < 10; i++) {
+            Alarm item = new Alarm("Alarm" + (i + 1), true, 0, 0);
+            listItems.add(item);
+        }
+
+
+
+
+
 
         //myDataset = new ArrayList<>();
 
-        System.out.println("myDataSet on Createview==2: " + myDataset);
 
         // specify an adapter (see also next example)
-        mAdapter = new AlarmListAdapter(myDataset);
+        //mAdapter = new AlarmListAdapter(myDataset);
+//        mAdapter = new MyAdapter(this.getActivity(), listItems);
+        mAdapter = new MyAdapter(this.getActivity(), myDataset);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -105,6 +127,8 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
     public ArrayList<Alarm> getMyDataset() {
         return this.myDataset;
     }
+
+
 
 
 }
