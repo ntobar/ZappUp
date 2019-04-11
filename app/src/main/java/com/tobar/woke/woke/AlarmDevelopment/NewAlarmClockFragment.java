@@ -14,11 +14,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -41,7 +44,7 @@ import static android.content.Context.ALARM_SERVICE;
  * - Setting an Alarm and its Snoozes
  * - Adding the Alarm
  */
-public class NewAlarmClockFragment extends Fragment implements View.OnClickListener {
+public class NewAlarmClockFragment extends Fragment implements View.OnClickListener, TextWatcher {
     AlarmManager alarmManager;
     TimePicker timePicker;
     TextView updateText;
@@ -50,6 +53,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
     boolean alarmState;
     int nSnoozes;
     int snoozeInterval;
+    EditText nSnoozesText;
 
 //
 //    @Override
@@ -156,18 +160,18 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
                 break;
 
-            case R.id.alarm_off:
-                System.out.println("AlarmOFF button pressed");
-
-                //Chaning udpate text box
-
-                setAlarmText("Alarm Off!");
-                storeTime = "";
-
-                this.alarmState = false;
-
-
-                break;
+//            case R.id.alarm_off:
+//                System.out.println("AlarmOFF button pressed");
+//
+//                //Chaning udpate text box
+//
+//                setAlarmText("Alarm Off!");
+//                storeTime = "";
+//
+//                this.alarmState = false;
+//
+//
+//                break;
 
             case R.id.addAlarmID:
 
@@ -320,6 +324,9 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
         Switch alarmToggle = (Switch) view.findViewById(R.id.alarm_on);
         alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
 
+        nSnoozesText = view.findViewById(R.id.nSnoozesID);
+        nSnoozesText.addTextChangedListener(this);
+
         Button addAlarmButton = (Button) view.findViewById(R.id.addAlarmID);
         addAlarmButton.setOnClickListener(this);
         alarmToggle.setOnClickListener(this);
@@ -371,6 +378,30 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
             setAlarmText("Alarm Turned Off");
             Log.d("MyActivity", "Alarm Off");
         }
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        Calendar calendar = Calendar.getInstance();
+        this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
+        Intent intent = new Intent(this.getActivity(), AlarmReceiver.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(this.getActivity(), 0, intent, 0);
+
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000 * 60 * this.nSnoozes, alarmIntent);
+
+        System.out.println("Snoozes set to: " + this.nSnoozes);
+
     }
 
 //    public void setAlarmText(String alarmText) {

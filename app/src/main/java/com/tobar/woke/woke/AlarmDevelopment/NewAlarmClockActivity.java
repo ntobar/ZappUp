@@ -149,18 +149,18 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
                 break;
 
-            case R.id.alarm_off:
-                System.out.println("AlarmOFF button pressed");
-
-                //Chaning udpate text box
-
-                setAlarmText("Alarm Off!");
-                storeTime = "";
-
-                this.alarmState = false;
-
-
-                break;
+//            case R.id.alarm_off:
+//                System.out.println("AlarmOFF button pressed");
+//
+//                //Chaning udpate text box
+//
+//                setAlarmText("Alarm Off!");
+//                storeTime = "";
+//
+//                this.alarmState = false;
+//
+//
+//                break;
 
             case R.id.addAlarmID:
 
