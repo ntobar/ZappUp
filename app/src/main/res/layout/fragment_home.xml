@@ -64,4 +64,13 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="#ffffff"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/currentAlarmsRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="345dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="203dp"
+        android:layout_marginBottom="183dp" />
+
 </RelativeLayout>

@@ -6,8 +6,13 @@
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:radius="10dp"
+    android:background="@drawable/layout_bg"
 
     >
+
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -20,7 +25,7 @@
             android:orientation="horizontal"
             android:paddingLeft="14dp"
             android:paddingTop="5dp"
-            android:background="@color/background">
+            android:background="#004A80">
 
 
             <TextView
@@ -28,7 +33,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:layout_weight="1"
                 android:textColor="#ccc"
                 />
@@ -52,6 +57,7 @@
 
             <Switch
                 android:id="@+id/alarm_state"
+                android:theme="@style/Theme.MyTheme"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />

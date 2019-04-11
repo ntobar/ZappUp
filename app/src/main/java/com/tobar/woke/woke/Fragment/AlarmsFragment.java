@@ -14,13 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import com.tobar.woke.woke.R;
+
 
 import com.tobar.woke.woke.Alarm;
 import com.tobar.woke.woke.AlarmDevelopment.NewAlarmClockActivity;
 import com.tobar.woke.woke.AlarmDevelopment.NewAlarmClockFragment;
 import com.tobar.woke.woke.AlarmListAdapter;
 import com.tobar.woke.woke.CurrentActivity;
-import com.tobar.woke.woke.R;
+
 import com.tobar.woke.woke.RecyclerView.MyAdapter;
 
 import java.util.ArrayList;
@@ -54,12 +57,17 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
 
 
 
+    //TODO: FIX WHEN ADDING TIME THATS 00 it only adds one 0
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_alarms, container, false);
         Button addAlarm = (Button) view.findViewById(R.id.randomButton);
+        ImageView addIcon = (ImageView) view.findViewById(R.id.addIconID);
+        addIcon.setOnClickListener(this);
+
+
         addAlarm.setOnClickListener(this);
 
         System.out.println("NEW INSTANCE OF ALARMS FRAGMENT ALERT!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -130,6 +138,13 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener {
 
                 break;
             // ...
+
+            case R.id.addIconID:
+
+                System.out.println("In Alarms fragment on Click IMAGE VIEW button");
+                Fragment fragment1 = new NewAlarmClockFragment();
+
+                loadFragment(fragment1);
         }
 
     }
