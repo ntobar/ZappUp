@@ -54,6 +54,8 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
     int nSnoozes;
     int snoozeInterval;
     EditText nSnoozesText;
+    Switch alarmToggle;
+
 
 //
 //    @Override
@@ -321,7 +323,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
         alarmTimePicker = (TimePicker) view.findViewById(R.id.alarmTimePicker);
         alarmTextView = (TextView) view.findViewById(R.id.alarmText);
         //ToggleButton alarmToggle = (ToggleButton) findViewById(R.id.alarmToggle);
-        Switch alarmToggle = (Switch) view.findViewById(R.id.alarm_on);
+        alarmToggle = (Switch) view.findViewById(R.id.alarm_on);
         alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
 
         nSnoozesText = view.findViewById(R.id.nSnoozesID);
@@ -409,6 +411,9 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //    }
 
 
+    public Switch getAlarmToggle() {
+        return alarmToggle;
+    }
 }
 
 

@@ -26,17 +26,6 @@
         android:textColor="#fff"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
 
-    <Button
-        android:id="@+id/randomButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/divider3"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="294dp"
-        android:layout_marginEnd="231dp"
-        android:layout_marginBottom="-84dp"
-        android:text="Add Alarm" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/alarmRecyclerView"
         android:layout_width="match_parent"
@@ -47,6 +36,16 @@
         android:id="@+id/addIconID"
         android:layout_width="44dp"
         android:layout_height="39dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="338dp"
+        android:layout_marginEnd="29dp"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <ImageView
+        android:id="@+id/removeAlarmID"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        app:srcCompat="@drawable/minus" />
 
 </RelativeLayout>

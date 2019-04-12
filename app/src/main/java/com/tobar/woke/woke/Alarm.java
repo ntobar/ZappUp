@@ -11,6 +11,7 @@ public class Alarm {
     private boolean alarmState;
     private int numberSnoozes;
     private int snoozeInterval;
+    private boolean delete;
 
     public Alarm(String alarmTime, boolean alarmState, int numberSnoozes, int snoozeInterval) {
 
@@ -18,6 +19,7 @@ public class Alarm {
         this.alarmState = alarmState;
         this.numberSnoozes = numberSnoozes;
         this.snoozeInterval = snoozeInterval;
+        this.delete = false;
 
 
 
@@ -39,5 +41,13 @@ public class Alarm {
 
     public int getSnoozeInterval() {
         return snoozeInterval;
+    }
+
+    public boolean isDelete() {
+        return delete;
+    }
+
+    public void setDelete(boolean delete) {
+        this.delete = delete;
     }
 }

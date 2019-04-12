@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.tobar.woke.woke.Alarm;
 import com.tobar.woke.woke.R;
@@ -26,6 +28,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         this.listItems = listItem;
 
     }
+
 
 
     @NonNull
@@ -49,6 +52,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         viewHolder.snoozeInterval.setText(item.getSnoozeInterval() + "min Interval");
         viewHolder.alarmState.setChecked(item.getAlarmState());
 
+
+//        if(!(item.isDelete())) {
+//            viewHolder.alarmState.setVisibility(View.INVISIBLE);
+//            viewHolder.deleteIcon.setVisibility(View.VISIBLE);
+//
+//        } else {
+//            viewHolder.alarmState.setVisibility(View.VISIBLE);
+//            viewHolder.deleteIcon.setVisibility(View.INVISIBLE);
+//
+//        }
     }
 
     @Override
@@ -56,22 +69,82 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return listItems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public List<Alarm> getListItems() {
+        return listItems;
+    }
+
+
+    public void removeItem(int position) {
+        listItems.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void setAlarms(List<Alarm> alarms) {
+        this.listItems = alarms;
+        notifyDataSetChanged();
+    }
+
+    public Alarm getAlarmAt(int position) {
+        return listItems.get(position);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView alarmTime;
         public TextView numberSnoozes;
         public TextView snoozeInterval;
         public Switch alarmState;
+        public ImageView deleteIcon;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(this);
+
+
 
             alarmTime = (TextView) itemView.findViewById(R.id.alarm_time);
             numberSnoozes = (TextView) itemView.findViewById(R.id.alarm_snoozes);
             snoozeInterval = (TextView) itemView.findViewById(R.id.alarm_intervals);
             alarmState = (Switch) itemView.findViewById(R.id.alarm_state);
+            deleteIcon = (ImageView) itemView.findViewById(R.id.removeAlarmID);
+
 
 
 
         }
+
+
+
+        @Override
+        public void onClick(View view) {
+            switch(view.getId()) {
+                case R.id.removeAlarmID:
+
+
+                    for(int i = 0; i < listItems.size(); i++) {
+
+                        listItems.get(i).setDelete(true);
+
+                        //alarmState.setVisibility(View.INVISIBLE);
+
+
+
+
+                    }
+
+
+
+                int pos = getAdapterPosition();
+
+                Alarm alarm = listItems.get(pos);
+
+                Toast.makeText(context, alarm.getAlarmTime(), Toast.LENGTH_LONG).show();
+
+                break;
+
+            }
+
+        }
+
     }
 }
