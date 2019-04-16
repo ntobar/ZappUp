@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.tobar.woke.woke.R;
@@ -76,6 +77,13 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener, Re
 
 
 
+
+//        Switch alarmState = view.findViewById(R.id.alarm_state);
+//        alarmState.setOnClickListener(this);
+
+
+
+
         System.out.println("NEW INSTANCE OF ALARMS FRAGMENT ALERT!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 
@@ -117,6 +125,7 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener, Re
         //mAdapter = new AlarmListAdapter(myDataset);
 //        mAdapter = new MyAdapter(this.getActivity(), listItems);
         mAdapter = new MyAdapter(this.getActivity(), myDataset);
+
 
         recyclerView.setAdapter(mAdapter);
 
@@ -181,6 +190,19 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener, Re
 
                 break;
 
+            case R.id.alarm_state:
+
+                MyAdapter adapter = (MyAdapter) mAdapter;
+
+                RecyclerView.ViewHolder vv = this.recyclerView.findContainingViewHolder(view);
+
+
+                adapter.removeItem(vv.getAdapterPosition());
+
+                System.out.println(vv.getAdapterPosition());
+
+
+
 //            case R.id.removeAlarmID:
 //
 //                System.out.println("Remove alarm Button");
@@ -232,34 +254,23 @@ public class AlarmsFragment extends Fragment implements View.OnClickListener, Re
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
 
         if (viewHolder instanceof MyAdapter.ViewHolder) {
-            // get the removed item name to display it in snack bar
-            String name = myDataset.get(viewHolder.getAdapterPosition()).getAlarmTime();
 
-            // backup of removed item for undo purpose
-            final Alarm deletedItem = myDataset.get(viewHolder.getAdapterPosition());
-            final int deletedIndex = viewHolder.getAdapterPosition();
 
-            // remove the item from recycler view
 
             MyAdapter adapter = (MyAdapter) mAdapter;
 
 
             adapter.removeItem(viewHolder.getAdapterPosition());
 
-//            // showing snack bar with Undo option
-//            Snackbar snackbar = Snackbar
-//                    .make(viewHolder, name + " removed from Alarms!", Snackbar.LENGTH_LONG);
-//            snackbar.setAction("UNDO", new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//                    // undo is selected, restore the deleted item
-//                    mAdapter.restoreItem(deletedItem, deletedIndex);
-//                }
-//            });
-//            snackbar.setActionTextColor(Color.YELLOW);
-//            snackbar.show();
+            Snackbar snackbar = Snackbar.make(this.getView(), "Alarm Removed!", Snackbar.LENGTH_LONG);
+            snackbar.setActionTextColor(Color.YELLOW);
+            snackbar.show();
+
+
+
+
         }
 
     }
+
 }

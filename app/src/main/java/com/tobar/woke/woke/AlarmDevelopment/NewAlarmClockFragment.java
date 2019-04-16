@@ -54,6 +54,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
     int nSnoozes;
     int snoozeInterval;
     EditText nSnoozesText;
+    EditText snoozeIntText;
     Switch alarmToggle;
 
 
@@ -208,6 +209,8 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
 
 
+
+
 //                Alarm newAlarm = new Alarm(storeTime, alarmState, nSnoozes, snoozeInterval);
 
                 CurrentActivity activity = (CurrentActivity) this.getActivity();
@@ -329,6 +332,9 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
         nSnoozesText = view.findViewById(R.id.nSnoozesID);
         nSnoozesText.addTextChangedListener(this);
 
+        snoozeIntText = view.findViewById(R.id.snoozeIntID);
+        snoozeIntText.addTextChangedListener(this);
+
         Button addAlarmButton = (Button) view.findViewById(R.id.addAlarmID);
         addAlarmButton.setOnClickListener(this);
         alarmToggle.setOnClickListener(this);
@@ -343,6 +349,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
         //Initialize Text Time Update
         updateText = (TextView) view.findViewById(R.id.alarmIndicator);
+        updateText.setVisibility(View.INVISIBLE);
 
         return view;
     }
@@ -370,9 +377,30 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //            alarmManager.cancel(pendingIntent);
 
 
+
+
             Intent myIntent = new Intent(this.getActivity(), AlarmReceiver.class);
             pendingIntent = PendingIntent.getBroadcast(this.getActivity(), 0, myIntent, 0);
-            alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+
+
+            //Gets the Snooze number and Snooze Interval
+            this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
+            this.snoozeInterval = Integer.parseInt(this.)
+
+
+            //If User sets number of Snoozes and Snooze interval
+            if((nSnoozes > 0) || (snoozeInterval > 0)) {
+
+
+
+
+
+
+            } else {
+
+
+                alarmManager.set(AlarmManager.RTC, calendar.getTimeInMillis(), pendingIntent);
+            }
         } else {
             alarmManager.cancel(pendingIntent); // CANCELS THE ALARM
             storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
@@ -394,11 +422,14 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void afterTextChanged(Editable editable) {
+
+
         Calendar calendar = Calendar.getInstance();
         this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
         Intent intent = new Intent(this.getActivity(), AlarmReceiver.class);
         PendingIntent alarmIntent = PendingIntent.getBroadcast(this.getActivity(), 0, intent, 0);
 
+        //Sets Repeating alarm with users desired amount of time in between snoozes
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 1000 * 60 * this.nSnoozes, alarmIntent);
 

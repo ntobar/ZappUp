@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -18,9 +19,20 @@ import com.tobar.woke.woke.R;
 import java.util.List;
 
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
     private List<Alarm> listItems;
+
+
+
+    public interface OnItemClickListener {
+
+        void onItemClick(int position);
+        void onDeleteClick(int position);
+
+
+
+    }
 
 
     public MyAdapter(Context context, List listItem) {
@@ -88,7 +100,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return listItems.get(position);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AdapterView.OnItemClickListener {
         public TextView alarmTime;
         public TextView numberSnoozes;
         public TextView snoozeInterval;
@@ -106,10 +118,42 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             numberSnoozes = (TextView) itemView.findViewById(R.id.alarm_snoozes);
             snoozeInterval = (TextView) itemView.findViewById(R.id.alarm_intervals);
             alarmState = (Switch) itemView.findViewById(R.id.alarm_state);
-            deleteIcon = (ImageView) itemView.findViewById(R.id.removeAlarmID);
+            //deleteIcon = (ImageView) itemView.findViewById(R.id.removeAlarmID);
+
+            alarmState.setOnClickListener(this);
 
 
 
+
+        }
+
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            if(this != null) {
+                int position = getAdapterPosition();
+                if(position != RecyclerView.NO_POSITION) {
+
+                    switch(view.getId()) {
+
+                        case R.id.alarm_state:
+
+                            System.out.println("Reached ONiTEMCLIKC BAD BUNNT");
+
+                        Alarm toChange = listItems.get(position);
+
+                        if(toChange.getAlarmState()) {
+                            toChange.setAlarmState(false);
+                        } else {
+                            toChange.setAlarmState(true);
+                        }
+
+                        break;
+
+                    }
+                }
+
+            }
 
         }
 
@@ -118,33 +162,39 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         @Override
         public void onClick(View view) {
             switch(view.getId()) {
-                case R.id.removeAlarmID:
+//                case R.id.removeAlarmID:
+//
+//
+//                    for(int i = 0; i < listItems.size(); i++) {
+//
+//                        listItems.get(i).setDelete(true);
+//
+//                        //alarmState.setVisibility(View.INVISIBLE);
+//
+//
+//                        break;
 
 
-                    for(int i = 0; i < listItems.size(); i++) {
-
-                        listItems.get(i).setDelete(true);
-
-                        //alarmState.setVisibility(View.INVISIBLE);
+                   // }
 
 
 
+//                int pos = getAdapterPosition();
+//
+//                Alarm alarm = listItems.get(pos);
+//
+//                Toast.makeText(context, alarm.getAlarmTime(), Toast.LENGTH_LONG).show();
+//
+//                break;
 
-                    }
-
-
-
-                int pos = getAdapterPosition();
-
-                Alarm alarm = listItems.get(pos);
-
-                Toast.makeText(context, alarm.getAlarmTime(), Toast.LENGTH_LONG).show();
-
-                break;
+//                case R.id.alarm_state:
+//
+//                    if(listener !=)
 
             }
 
         }
+
 
     }
 }
