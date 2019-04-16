@@ -43,6 +43,7 @@
         android:layout_marginBottom="8dp"
         android:onClick="onToggleClicked"
         android:text="Alarm  "
+        android:theme="@style/Theme.MyTheme"
         android:textColor="#ccc"
         app:layout_constraintBottom_toBottomOf="@+id/alarmTimePicker"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,10 +108,10 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/aaactivity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarmTimePicker"
-        app:layout_constraintVertical_bias="0.198" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:layout_constraintVertical_bias="0.016" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -131,13 +132,13 @@
 
     <TextView
         android:id="@+id/snoozesText"
-        android:layout_width="102dp"
+        android:layout_width="150dp"
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Snooze Interval"
+        android:text="  Number of Snoozes"
         app:layout_constraintBottom_toBottomOf="@+id/aaactivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -153,7 +154,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Number of Snoozes"
+        android:text="    Snooze Interval"
         app:layout_constraintBottom_toBottomOf="@+id/aaactivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.969"
@@ -173,10 +174,10 @@
         android:inputType="number"
         app:layout_constraintBottom_toBottomOf="@+id/aaactivity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintHorizontal_bias="0.106"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/alarmTimePicker"
-        app:layout_constraintVertical_bias="0.215" />
+        app:layout_constraintTop_toBottomOf="@+id/snoozesText"
+        app:layout_constraintVertical_bias="0.048" />
 
     <FrameLayout
         android:id="@+id/frameLayout"

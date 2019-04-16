@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -290,6 +291,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
 
                     //---------------------------------------------------------------------------------
+
 
 
 //                Alarm newAlarm = new Alarm(storeTime, alarmState, nSnoozes, snoozeInterval);

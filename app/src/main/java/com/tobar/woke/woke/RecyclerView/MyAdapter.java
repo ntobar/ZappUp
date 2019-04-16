@@ -60,8 +60,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
         viewHolder.alarmTime.setText(item.getAlarmTime());
-        viewHolder.numberSnoozes.setText(item.getNumberSnoozes() + " snoozes");
-        viewHolder.snoozeInterval.setText(item.getSnoozeInterval() + "min Interval");
+        if((item.getNumberSnoozes() == 0) || (item.getNumberSnoozes() > 1)) {
+            viewHolder.numberSnoozes.setText(item.getNumberSnoozes() + " snoozes");
+        } else if((item.getNumberSnoozes() == 1)) {
+            viewHolder.numberSnoozes.setText(item.getNumberSnoozes() + " snooze");
+        }
+//        viewHolder.numberSnoozes.setText(item.getNumberSnoozes() + " snooze(s)");
+        viewHolder.snoozeInterval.setText(item.getSnoozeInterval() + " min. Interval");
         viewHolder.alarmState.setChecked(item.getAlarmState());
 
 
