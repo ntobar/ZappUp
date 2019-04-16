@@ -34,6 +34,7 @@ import com.tobar.woke.woke.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -46,7 +47,7 @@ import static android.content.Context.ALARM_SERVICE;
  */
 public class NewAlarmClockFragment extends Fragment implements View.OnClickListener, TextWatcher {
     AlarmManager alarmManager;
-    TimePicker timePicker;
+    //TimePicker timePicker;
     TextView updateText;
     Context context;
     String storeTime;
@@ -56,6 +57,11 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
     EditText nSnoozesText;
     EditText snoozeIntText;
     Switch alarmToggle;
+
+    private PendingIntent pendingIntent;
+    private TimePicker alarmTimePicker;
+    private static NewAlarmClockFragment inst;
+    private TextView alarmTextView;
 
 
 //
@@ -108,25 +114,32 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
         //Example 24:00
 
+        String minutesS = Integer.toString(minutes);
+
+        if(minutes < 10) {
+            minutesS = "0" + minutes;
+        }
+
+
         if(hours == 12) {
 
-            result = hours + ":" + minutes + " PM";
+            result = hours + ":" + minutesS + " PM";
 
 
         } else if(hours == 24) {
 
-            result = (hours - 12) + ":" + minutes + " AM";
+            result = (hours - 12) + ":" + minutesS + " AM";
 
         } else if(hours == 0) {
 
-            result = 12 + ":" + minutes + " AM";
+            result = 12 + ":" + minutesS + " AM";
 
         } else if(hours > 12) {
-            result = (hours - 12) + ":" + minutes + " PM";
+            result = (hours - 12) + ":" + minutesS + " PM";
 
         }  else if(hours < 12) {
 
-            result = hours + ":" + minutes + " AM";
+            result = hours + ":" + minutesS + " AM";
 
         }
 
@@ -148,13 +161,15 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
                 System.out.println("Reached switch button");
 
+                System.out.println("currHour: " + alarmTimePicker.getCurrentHour() + " currMinute: " + alarmTimePicker.getCurrentMinute());
+
 
                 storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
                 setAlarmText(storeTime);
 
                 this.alarmState = true;
 
-                //Chaning udpate text box
+                //Changing udpate text box
 
 //                setAlarmText("Alarm set for " + timeConversion(timePicker.getHour(), timePicker.getMinute()));
 //
@@ -204,27 +219,93 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
                 storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
 
-                System.out.print("AlarmState: " + this.alarmState);
 
 
 
 
+                //SETTING THE ALARM
+
+                if (this.alarmToggle.isChecked()) {
+
+
+                    storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
+                    Log.d("MyActivity", "Alarm On at " + storeTime);
+
+//
+
+
+                    Toast.makeText(getActivity().getApplicationContext(), "Alarm added for " + storeTime, Toast.LENGTH_SHORT).show();
+
+                    setAlarmText("Alarm Set for: " + storeTime);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
+                    calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+
+//            Intent intent = new Intent(this, Mote.class);
+//            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 1253, intent, 0);
+//            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+//            alarmManager.cancel(pendingIntent);
+
+
+
+
+                    Intent myIntent = new Intent(this.getActivity(), AlarmReceiver.class);
+                    pendingIntent = PendingIntent.getBroadcast(this.getActivity(), 0, myIntent, 0);
+
+
+                    //Gets the Snooze number and Snooze Interval
+                    this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
+                    this.snoozeInterval = Integer.parseInt(this.snoozeIntText.getText().toString());
+
+                    System.out.println(calendar.getTimeInMillis() + "= TimeinMILLIS");
+                    System.out.println("HOURS OF " + TimeUnit.MILLISECONDS.toHours(calendar.getTimeInMillis()));
+
+
+                    //If User sets number of Snoozes and Snooze interval
+                    if ((nSnoozes > 0) || (snoozeInterval > 0)) {
+                        //Sets Repeating alarm with users desired amount of time in between snoozes
+                        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                                1000 * 60 * this.snoozeInterval, pendingIntent);
+
+                        //Converting snooze Interval Minutes to MilliSeconds
+                        long snoozeIntMS = TimeUnit.MINUTES.toMillis(this.snoozeInterval);
+
+
+
+
+                        long FINAL_WAKE_TIME = calendar.getTimeInMillis() + (this.nSnoozes * snoozeIntMS);
+
+                        System.out.println(TimeUnit.MILLISECONDS.toHours(FINAL_WAKE_TIME));
+
+
+
+
+                    } else {
+
+
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                    }
+
+                }
+
+
+                    //---------------------------------------------------------------------------------
 
 
 //                Alarm newAlarm = new Alarm(storeTime, alarmState, nSnoozes, snoozeInterval);
 
-                CurrentActivity activity = (CurrentActivity) this.getActivity();
+                    CurrentActivity activity = (CurrentActivity) this.getActivity();
 
-                ArrayList<Alarm> dataSet = activity.getDs();
+                    ArrayList<Alarm> dataSet = activity.getDs();
 
-                Alarm newAlarm = new Alarm(storeTime, alarmState, nSnoozes, snoozeInterval);
-                dataSet.add(newAlarm);
+                    Alarm newAlarm = new Alarm(storeTime, alarmState, nSnoozes, snoozeInterval);
+                    dataSet.add(newAlarm);
 
-                Fragment fragment = new AlarmsFragment();
+                    Fragment fragment = new AlarmsFragment();
 
-                loadFragment(fragment);
+                    loadFragment(fragment);
 
-                //OLD CODE STARTS Here
+                    //OLD CODE STARTS Here
 //
 //                Intent alarmIntent = new Intent(this, CurrentActivity.class);
 //
@@ -235,9 +316,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //
 //                startActivity(alarmIntent);
 
-                // OLD CODE fINISHes here
-
-
+                    // OLD CODE fINISHes here
 
 
 //                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -246,7 +325,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
 //                FragmentManager manager = getFragmentManager();
 //                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                //FragmentTransaction transaction = manager.beginTransaction();
+                    //FragmentTransaction transaction = manager.beginTransaction();
 //                transaction.replace(R.id.aaactivity, this.alarmsFragment);
 //                transaction.addToBackStack(null);
 //                transaction.commit();
@@ -256,13 +335,13 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //                transaction.commit();
 
 
-
-                //oadFragment(this.alarmsFragment);
-
-
-
-
+                    //oadFragment(this.alarmsFragment);
                 break;
+
+
+
+
+
 
 
 
@@ -303,10 +382,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
     }
 
     //AlarmManager alarmManager;
-    private PendingIntent pendingIntent;
-    private TimePicker alarmTimePicker;
-    private static NewAlarmClockFragment inst;
-    private TextView alarmTextView;
+
 
     public static NewAlarmClockFragment instance() {
         return inst;
@@ -329,11 +405,15 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
         alarmToggle = (Switch) view.findViewById(R.id.alarm_on);
         alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
 
-        nSnoozesText = view.findViewById(R.id.nSnoozesID);
+        snoozeIntText = view.findViewById(R.id.nSnoozesID);
+        snoozeIntText.setText("0");
+        snoozeIntText.addTextChangedListener(this);
+
+
+        nSnoozesText = view.findViewById(R.id.snoozeIntID);
+        nSnoozesText.setText("0");
         nSnoozesText.addTextChangedListener(this);
 
-        snoozeIntText = view.findViewById(R.id.snoozeIntID);
-        snoozeIntText.addTextChangedListener(this);
 
         Button addAlarmButton = (Button) view.findViewById(R.id.addAlarmID);
         addAlarmButton.setOnClickListener(this);
@@ -358,6 +438,8 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //        if (((ToggleButton) view).isChecked()) {
         if (((Switch) view).isChecked()) {
 
+
+
             storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
             Log.d("MyActivity", "Alarm On at " + storeTime);
 
@@ -377,6 +459,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //            alarmManager.cancel(pendingIntent);
 
 
+            System.out.println("Time in MS" + calendar.getTimeInMillis());
 
 
             Intent myIntent = new Intent(this.getActivity(), AlarmReceiver.class);
@@ -385,11 +468,19 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
             //Gets the Snooze number and Snooze Interval
             this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
-            this.snoozeInterval = Integer.parseInt(this.)
+            this.snoozeInterval = Integer.parseInt(this.snoozeIntText.getText().toString());
+
+            System.out.println(calendar.getTimeInMillis() + "= TimeinMILLIS");
 
 
             //If User sets number of Snoozes and Snooze interval
             if((nSnoozes > 0) || (snoozeInterval > 0)) {
+                //Sets Repeating alarm with users desired amount of time in between snoozes
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                1000 * 60 * this.snoozeInterval, pendingIntent);
+
+                long FINAL_WAKE_TIME = calendar.getTimeInMillis() + (this.nSnoozes * (1000 * 60 * this.snoozeInterval));
+
 
 
 
@@ -424,14 +515,14 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
     public void afterTextChanged(Editable editable) {
 
 
-        Calendar calendar = Calendar.getInstance();
-        this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
-        Intent intent = new Intent(this.getActivity(), AlarmReceiver.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(this.getActivity(), 0, intent, 0);
-
-        //Sets Repeating alarm with users desired amount of time in between snoozes
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                1000 * 60 * this.nSnoozes, alarmIntent);
+//        Calendar calendar = Calendar.getInstance();
+//        this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
+//        Intent intent = new Intent(this.getActivity(), AlarmReceiver.class);
+//        PendingIntent alarmIntent = PendingIntent.getBroadcast(this.getActivity(), 0, intent, 0);
+//
+//        //Sets Repeating alarm with users desired amount of time in between snoozes
+//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+//                1000 * 60 * this.nSnoozes, alarmIntent);
 
         System.out.println("Snoozes set to: " + this.nSnoozes);
 

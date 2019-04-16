@@ -43,12 +43,13 @@
         android:layout_marginBottom="8dp"
         android:onClick="onToggleClicked"
         android:text="Alarm  "
+        android:textColor="#ccc"
         app:layout_constraintBottom_toBottomOf="@+id/alarmTimePicker"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintVertical_bias="0.985" />
 
     <!--<ToggleButton-->
         <!--android:layout_width="wrap_content"-->
@@ -109,7 +110,7 @@
         app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alarmTimePicker"
-        app:layout_constraintVertical_bias="0.153" />
+        app:layout_constraintVertical_bias="0.198" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -175,7 +176,7 @@
         app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alarmTimePicker"
-        app:layout_constraintVertical_bias="0.171" />
+        app:layout_constraintVertical_bias="0.215" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
