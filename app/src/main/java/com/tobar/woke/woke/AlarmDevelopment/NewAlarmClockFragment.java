@@ -59,10 +59,21 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
     EditText snoozeIntText;
     Switch alarmToggle;
 
+//    AlarmReceiver ar;
+
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
     private static NewAlarmClockFragment inst;
     private TextView alarmTextView;
+
+
+    private void cancelAlarm() {
+        if (alarmManager!= null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+
+
 
 
 //
@@ -104,6 +115,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
      * @return String representing the converted time in 24-hour format
      */
     public String timeConversion(int hours, int minutes) {
+
         /*
          * Write your code here.
          */
@@ -247,11 +259,23 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 //            alarmManager.cancel(pendingIntent);
 
+                    AlarmReceiver ar = new AlarmReceiver();
+                    Intent myIntent = new Intent(this.getActivity(),AlarmReceiver.class);
 
 
 
-                    Intent myIntent = new Intent(this.getActivity(), AlarmReceiver.class);
+
+
+                    //Intent myIntent = new Intent(this.getActivity(), AlarmReceiver.class);
+
+//                    Intent myIntent = new Intent(this.getActivity(), AlarmReceiverActivity.class);
                     pendingIntent = PendingIntent.getBroadcast(this.getActivity(), 0, myIntent, 0);
+
+//                    /** This intent invokes the activity DemoActivity, which in turn opens the AlertDialog window */
+//                    Intent i = new Intent("in.wptrafficanalyzer.servicealarmdemo.demoactivity");
+//
+//                    /** Creating a Pending Intent */
+//                    PendingIntent operation = PendingIntent.getActivity(this.getActivity(), 0, i, 0);
 
 
                     //Gets the Snooze number and Snooze Interval
@@ -433,7 +457,10 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
         updateText = (TextView) view.findViewById(R.id.alarmIndicator);
         updateText.setVisibility(View.INVISIBLE);
 
-        return view;
+
+        //if(ar.getMqttClient().getPayload() == )
+
+            return view;
     }
 
     public void onToggleClicked(View view) {

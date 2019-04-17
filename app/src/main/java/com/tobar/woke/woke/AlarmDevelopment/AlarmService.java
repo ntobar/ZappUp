@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.tobar.woke.woke.CurrentActivity;
+import com.tobar.woke.woke.Fragment.AlarmsFragment;
 import com.tobar.woke.woke.R;
 
 public class AlarmService extends IntentService {
@@ -28,17 +30,19 @@ public class AlarmService extends IntentService {
         alarmNotificationManager = (NotificationManager) this
                 .getSystemService(Context.NOTIFICATION_SERVICE);
 
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, NewAlarmClockActivity.class), 0);
 
-        NotificationCompat.Builder alamNotificationBuilder = new NotificationCompat.Builder(
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, NewAlarmClockFragment.class), 0);
+
+        NotificationCompat.Builder alarmNotificationBuilder = new NotificationCompat.Builder(
                 this).setContentTitle("Alarm").setSmallIcon(R.drawable.ic_launcher_background)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(msg))
                 .setContentText(msg);
 
 
-        alamNotificationBuilder.setContentIntent(contentIntent);
-        alarmNotificationManager.notify(1, alamNotificationBuilder.build());
+        alarmNotificationBuilder.setContentIntent(contentIntent);
+        alarmNotificationManager.notify(1, alarmNotificationBuilder.build());
         Log.d("AlarmService", "Notification sent.");
+
     }
 }

@@ -1,6 +1,7 @@
 package com.tobar.woke.woke.MQTT;
 
 import com.google.gson.Gson;
+import com.tobar.woke.woke.AlarmDevelopment.AlarmReceiver;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -28,6 +29,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.eclipse.paho.client.mqttv3.IMqttClient;
 
 public class MqttClientConnector implements MqttCallback {
 
@@ -46,29 +48,39 @@ public class MqttClientConnector implements MqttCallback {
      */
     private static final Logger logger = Logger.getLogger(MqttClientConnector.class.getName());
     private String _protocol = "tcp";
-    private String _host = "test.mosquitto.org";
-    private int _port = 1883;
+//    private String _host = "test.mosquitto.org";
+    private String _host = "tcp://iot.eclipse.org:1883";
+    //private int _port = 1883;
 
     private String _authToken;
-    private String _clientID;
+    private String _clientID = "jSub";
     private String _brokerAddr;
     private String _pemFileName;
     private boolean _isSecureConn = false;
     private MqttClient mqttClient;
     private static String msg;
+    private String payload;
+    private AlarmReceiver ar;
+    public String MESSAGE_ON;
+
 
 
     /**
      * MqttClientConnector default constructor
      */
-    public MqttClientConnector() {
+    public MqttClientConnector(AlarmReceiver ar) {
+
+        this.ar = ar;
+
         if (_host != null && _host.trim().length() > 0) {
 
             this._clientID = mqttClient.generateClientId();
             logger.info("Using client id for broker connection: " + _clientID);
-            this._brokerAddr = _protocol + "://" + _host + ":" + _port;
+            //this._brokerAddr = _protocol + "://" + _host + ":" + _port;
             logger.info("Using URL for broker connection: " + _brokerAddr);
         }
+
+        this.payload = "";
     }
 
 
@@ -79,7 +91,7 @@ public class MqttClientConnector implements MqttCallback {
         if (mqttClient == null) {
             MemoryPersistence persistence = new MemoryPersistence();
             try {
-                mqttClient = new MqttClient(_brokerAddr, _clientID, persistence);
+                mqttClient = new MqttClient(_host, _clientID, persistence);
                 MqttConnectOptions connOpts = new MqttConnectOptions();
                 connOpts.setCleanSession(true);
                 System.out.println("Token: " + _authToken);
@@ -181,6 +193,18 @@ public class MqttClientConnector implements MqttCallback {
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
 
+
+        String payload = new String(message.getPayload());
+
+        System.out.println(payload + " = payload");
+        System.out.println("MESSAGE FROM SUBSCRIBER ARRIVED NOW");
+
+//        if(payload == "off") {
+//
+//            //turn off alarm
+//
+//        }
+
         MqttClientConnector.setMsg(message);
 
 
@@ -189,7 +213,27 @@ public class MqttClientConnector implements MqttCallback {
         //logger.info("\n\nReceived Sensor Data: \n" + sensorData);
         //logger.info("\n\nReceived Sensor Data to JSON: \n" + dataUtil.SensorDataToJson(sensorData));
 
+
+
+        if(((topic.equals("matsensor")) && payload.equals("off"))
+        || ((topic.equals("useractivity")) && payload.equals("done"))){
+
+            this.MESSAGE_ON = payload;
+
+            this.payload = "off";
+            System.out.println("entered if in MQTT CONNECTOR");
+            this.ar.stopAlarm();
+        }
+
     }
+
+
+    public String getPayload() {
+
+        return payload;
+
+    }
+
 
     /*
      * (non-Javadoc)

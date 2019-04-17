@@ -46,6 +46,20 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
 //
 //    @Override
+
+    public AlarmManager getAlarmManager() {
+        return alarmManager;
+    }
+
+    public void cancelAlarm() {
+        if (alarmManager!= null) {
+            alarmManager.cancel(pendingIntent);
+        }
+    }
+
+    public void setAlarmManager(AlarmManager alarmManager) {
+        this.alarmManager = alarmManager;
+    }
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_new_alarm_clock);
@@ -306,6 +320,10 @@ public class NewAlarmClockActivity extends AppCompatActivity implements View.OnC
 
         //Initialize Text Time Update
         updateText = (TextView) findViewById(R.id.alarmIndicator);
+
+
+
+
     }
 
     public void onToggleClicked(View view) {
