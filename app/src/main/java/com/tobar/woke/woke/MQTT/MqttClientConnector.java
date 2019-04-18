@@ -222,6 +222,7 @@ public class MqttClientConnector implements MqttCallback {
 
             this.payload = "off";
             System.out.println("entered if in MQTT CONNECTOR");
+
             this.ar.stopAlarm();
         }
 

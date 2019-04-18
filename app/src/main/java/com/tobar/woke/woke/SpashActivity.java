@@ -26,7 +26,7 @@ public class SpashActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Toast.makeText(getApplicationContext(), "Loading Zapp Up...", Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "Loading iRoNa...", Toast.LENGTH_LONG).show();
 
 
 

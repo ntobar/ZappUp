@@ -234,6 +234,12 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
                 storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
 
 
+                //Gets the Snooze number and Snooze Interval
+                this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
+                this.snoozeInterval = Integer.parseInt(this.snoozeIntText.getText().toString());
+
+                Alarm newAlarm = new Alarm(storeTime, alarmState, nSnoozes, snoozeInterval);
+
 
 
 
@@ -260,8 +266,13 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 //            alarmManager.cancel(pendingIntent);
 
+
+
+
                     //Class<AlarmReceiver> ar = AlarmReceiver.class;
                     Intent myIntent = new Intent(this.getActivity(), AlarmReceiver.class);
+
+                    myIntent.putExtra("alarmTime", storeTime);
 
 
 
@@ -285,9 +296,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //                    PendingIntent operation = PendingIntent.getActivity(this.getActivity(), 0, i, 0);
 
 
-                    //Gets the Snooze number and Snooze Interval
-                    this.nSnoozes = Integer.parseInt(this.nSnoozesText.getText().toString());
-                    this.snoozeInterval = Integer.parseInt(this.snoozeIntText.getText().toString());
+
 
                     System.out.println(calendar.getTimeInMillis() + "= TimeinMILLIS");
                     System.out.println("HOURS OF " + TimeUnit.MILLISECONDS.toHours(calendar.getTimeInMillis()));
@@ -331,7 +340,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
                     ArrayList<Alarm> dataSet = activity.getDs();
 
-                    Alarm newAlarm = new Alarm(storeTime, alarmState, nSnoozes, snoozeInterval);
+
                     dataSet.add(newAlarm);
 
                     Fragment fragment = new AlarmsFragment();
