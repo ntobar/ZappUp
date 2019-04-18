@@ -4,6 +4,8 @@ package com.tobar.woke.woke.AlarmDevelopment;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +14,12 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Vibrator;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.view.Window;
 
+import com.tobar.woke.woke.CurrentActivity;
 import com.tobar.woke.woke.MQTT.MqttClientConnector;
 //import com.tobar.woke.woke.MQTT.MqttPubClientTestApp;
 import com.tobar.woke.woke.R;
@@ -52,12 +57,11 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
     IMqttClient iMqttClientSub;
     MemoryPersistence persistence = new MemoryPersistence();
     Ringtone ringtone;
+    NotificationHelper notificationHelper;
 
-
-
-
-
-
+    public NotificationHelper getNotificationHelper() {
+        return notificationHelper;
+    }
 
     public MqttClientConnector getMqttClient() {
         return mqttClient;
@@ -134,18 +138,47 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
 
 
 
+        
 
 
-        Notification notification = new Notification.Builder(context)
-                .setContentTitle("ALARM ON").setContentText("You have set up an Alarm")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .build();
 
-        NotificationManager notificationManager = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        notificationManager.notify(0,notification);
+        //NOTIFICATION OPTION 1
+        notificationHelper = new NotificationHelper(context);
+        NotificationCompat.Builder nb = notificationHelper.getChannelNotification();
+        notificationHelper.getManager().notify(1, nb.build());
+
+
+        Intent notifyIntent = new Intent(AlarmReceiver.class);
+// Set the Activity to start in a new, empty task
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+// Create the PendingIntent
+        PendingIntent notifyPendingIntent = PendingIntent.getActivity(
+                this.getActivity(), 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+        );
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+        builder.setContentIntent(notifyPendingIntent);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this.getActivity());
+        notificationManager.notify(NOTIFICATION_ID, builder.build());
+
+
+
+
+
+        //NOTIFICATION OPTION 2
+//        Notification notification = new Notification.Builder(context)
+//                .setContentTitle("ALARM ON").setContentText("You have set up an Alarm")
+//                .setSmallIcon(R.mipmap.ic_launcher)
+//                .build();
+//
+//        NotificationManager notificationManager = (NotificationManager) context
+//                .getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+//        notificationManager.notify(0,notification);
 
         //this will sound the alarm tone
         //this will sound the alarm once, if you wish to
@@ -174,6 +207,7 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
                 vibrator.cancel();
 
                 ringtone.stop();
+
 
                 System.out.println("PAYLOAD IS OFFFFFF");
 

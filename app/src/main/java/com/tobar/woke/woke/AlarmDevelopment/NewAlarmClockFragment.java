@@ -13,6 +13,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -259,9 +260,15 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 //            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 //            alarmManager.cancel(pendingIntent);
 
-                    AlarmReceiver ar = new AlarmReceiver();
-                    Intent myIntent = new Intent(this.getActivity(),AlarmReceiver.class);
+                    //Class<AlarmReceiver> ar = AlarmReceiver.class;
+                    Intent myIntent = new Intent(this.getActivity(), AlarmReceiver.class);
 
+
+
+                    // NOTIFICATION CODE
+
+
+                    //ENDS HERE
 
 
 

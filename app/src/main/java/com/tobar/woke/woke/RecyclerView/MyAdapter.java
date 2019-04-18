@@ -167,6 +167,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             switch(view.getId()) {
+
+
+                case R.id.alarm_state:
+
+                    System.out.println("Reached ONiTEMCLIKC BAD BUNNT");
+
+                    Alarm toChange = listItems.get(getAdapterPosition());
+
+                    System.out.println("POSITION: " + getAdapterPosition());
+
+                    if(toChange.getAlarmState()) {
+                        toChange.setAlarmState(false);
+                    } else {
+                        toChange.setAlarmState(true);
+                    }
+
+                    break;
+
+
 //                case R.id.removeAlarmID:
 //
 //
