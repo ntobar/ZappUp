@@ -500,6 +500,8 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         //---------------------------------------------------------------------------------------
 
         String alarmTime = "";
+        int nSnoozes = 0;
+        int snoozeInt = 0;
 
 
         Bundle extras = intent.getExtras();
@@ -509,32 +511,35 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         if(extras != null) {
 
 
-            if(extras.get("alarmTime") instanceof String) {
+           // if(extras.get("alarmTime") instanceof String) {
 
 
                 alarmTime = extras.getString("alarmTime");
-
-            } else if(extras.get("alarmTime") instanceof Integer) {
-
-                System.out.println("tPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-
-                Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                if (alarmUri == null) {
-                    alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                }
-
-                ringtone = RingtoneManager.getRingtone(context, alarmUri);
-
-                vibrator.cancel();
-
-                ringtone.stop();
-                ringtone = null;
-                System.out.println("changing activiTTTT");
-                Intent intnt = new Intent(context, CurrentActivity.class);
-                context.startActivity(intnt);
+                nSnoozes = extras.getInt("nSnoozes");
+                snoozeInt = extras.getInt("snoozeInt");
 
 
-            }
+//            } else if(extras.get("alarmTime") instanceof Integer) {
+//
+//                System.out.println("tPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
+//
+//                Uri alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+//                if (alarmUri == null) {
+//                    alarmUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//                }
+//
+//                ringtone = RingtoneManager.getRingtone(context, alarmUri);
+//
+//                vibrator.cancel();
+//
+//                ringtone.stop();
+//                ringtone = null;
+//                System.out.println("changing activiTTTT");
+//                Intent intnt = new Intent(context, CurrentActivity.class);
+//                context.startActivity(intnt);
+//
+//
+//            }
 
 
 
@@ -563,9 +568,9 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         ringtone = RingtoneManager.getRingtone(context, alarmUri);
 
 
-        RingtoneManager rm = new RingtoneManager(context.getApplicationContext());
+        //RingtoneManager rm = new RingtoneManager(context.getApplicationContext());
 //        ringtone = RingtoneManager.getRingtone(context.getApplicationContext(), alarmUri);
-        ringtone = rm.getRingtone(context.getApplicationContext(), alarmUri);
+        //ringtone = rm.getRingtone(context.getApplicationContext(), alarmUri);
         ringtone.play();
 
 
@@ -579,9 +584,10 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         System.out.println(context.getApplicationContext() + " = Application Context at RECEIVER");
 
 
+
         //NEW CODE
-//        Intent notifyIntent = new Intent(context, NotificationActivity.class);
-        Intent notifyIntent = new Intent(context, na.getClass());
+        Intent notifyIntent = new Intent(context, NotificationActivity.class);
+        //Intent notifyIntent = new Intent(context, na.getClass());
         notifyIntent.putExtra("alarmTime", alarmTime);
         notifyIntent.putExtra("alarmUri", alarmUri);
         //notifyIntent.putExtra("context", (Serializable) context);
@@ -590,20 +596,28 @@ public class AlarmReceiver extends WakefulBroadcastReceiver {
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 // Create the PendingIntent
-        PendingIntent notifyPendingIntent = PendingIntent.getActivity(
-                context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
-        );
 
 
-        //NOTIFICATION OPTION 2
-        notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb1 = notificationHelper.getChannelNotification();
+        if(nSnoozes == 0) {
+            PendingIntent notifyPendingIntent = PendingIntent.getActivity(
+                    context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT
+            );
+
+
+            //NOTIFICATION OPTION 2
+            notificationHelper = new NotificationHelper(context);
+            NotificationCompat.Builder nb1 = notificationHelper.getChannelNotification();
 //        notificationHelper.getManager().notify(1, nb1.build());
 
-        // NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
-        nb1.setContentIntent(notifyPendingIntent);
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(1, nb1.build());
+            // NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+            nb1.setContentIntent(notifyPendingIntent);
+            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            notificationManager.notify(1, nb1.build());
+        } else {
+
+            context.startActivity(notifyIntent);
+
+        }
 
         //END OF NEW CODE
 

@@ -273,6 +273,8 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
                     Intent myIntent = new Intent(this.getActivity(), AlarmReceiver.class);
 
                     myIntent.putExtra("alarmTime", storeTime);
+                    myIntent.putExtra("nSnoozes", nSnoozes);
+                    myIntent.putExtra("snoozeInt", snoozeInterval);
 
 
 
