@@ -6,63 +6,69 @@
 
     <TextView
         android:id="@+id/setupID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:gravity="center"
+        android:background="#293542"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="0dp"
         android:text="@string/setupID"
+        android:textStyle="bold"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="#0076A3"/>
+        android:textColor="#DCA811" />
 
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="59dp"
-        android:background="#004A80" />
+    <!--<View-->
+        <!--android:id="@+id/divider3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="6dp"-->
+        <!--android:layout_alignParentStart="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_marginTop="59dp"-->
+        <!--android:background="#293542" />-->
 
     <TextView
         android:id="@+id/alarmsString"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="157dp"
+        android:layout_marginTop="130dp"
+        android:background="#293542"
         android:text="@string/alarmsString"
+        android:gravity="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="#0076A3"/>
+        android:textColor="#0076A3" />
 
     <View
         android:id="@+id/divider4"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
+        android:layout_height="2dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="190dp"
-        android:background="#004A80" />
+        android:background="#DCA811" />
 
     <View
         android:id="@+id/divider5"
         android:layout_width="match_parent"
-        android:layout_height="6dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="2dp"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="118dp"
-        android:background="#004A80" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginBottom="128dp"
+        android:background="#DCA811" />
 
     <TextView
         android:id="@+id/devicesString"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="138dp"
+        android:layout_marginBottom="135dp"
+        android:background="#293542"
         android:text="@string/devicesString"
+        android:gravity="center"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="#0076A3"/>
+        android:textColor="#0076A3" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/currentAlarmsRecycler"

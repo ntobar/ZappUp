@@ -251,6 +251,8 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
                     storeTime = timeConversion(alarmTimePicker.getCurrentHour(), alarmTimePicker.getCurrentMinute());
                     Log.d("MyActivity", "Alarm On at " + storeTime);
 
+                    System.out.println("MYACTIVITY ALARM ON " + storeTime);
+
 //
 
 
@@ -324,6 +326,8 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
 
 
                     } else {
+
+                        System.out.println("Time set with 0 snoozes");
 
 
                         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);

@@ -27,7 +27,7 @@
             android:orientation="horizontal"
             android:paddingLeft="14dp"
             android:paddingTop="8dp"
-            android:paddingRight="14dp"
+            android:paddingRight="10dp"
             android:paddingBottom="5dp">
 
 
