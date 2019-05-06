@@ -60,6 +60,7 @@ public class NewAlarmClockFragment extends Fragment implements View.OnClickListe
     Switch alarmToggle;
 
 //    AlarmReceiver ar;
+    //ar not needed for now should delete
 
     private PendingIntent pendingIntent;
     private TimePicker alarmTimePicker;
