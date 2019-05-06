@@ -25,7 +25,7 @@ import java.util.List;
 
 
 /**
- * 
+ * This class represents
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private Context context;
@@ -87,7 +87,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //            viewHolder.deleteIcon.setVisibility(View.INVISIBLE);
 //
 //        }
+
+
     }
+
+
 
     @Override
     public int getItemCount() {

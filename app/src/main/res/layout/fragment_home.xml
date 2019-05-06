@@ -15,6 +15,7 @@
         android:layout_marginTop="0dp"
         android:text="@string/setupID"
         android:textStyle="bold"
+        android:textSize="28dp"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="#DCA811" />
 

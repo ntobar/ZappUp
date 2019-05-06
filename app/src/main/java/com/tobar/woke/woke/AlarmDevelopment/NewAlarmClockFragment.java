@@ -40,7 +40,6 @@ import java.util.concurrent.TimeUnit;
 
 import static android.content.Context.ALARM_SERVICE;
 
-//implements View.OnClickListener
 
 /**
  * This Class represents an Alarm Clock and manages everything related to it:
