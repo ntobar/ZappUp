@@ -1,6 +1,7 @@
 # iRoNa
 
 ## An Android Alarm Clock and IoT Mobile Application
+> iRoNa is an Android application designed for people who have trouble waking up.  It works by connecting to a mat that contains a Raspberry Pi.  Whenever the Alarm  starts, the only way to turn it off is for the user to physically stand on the mat for 3 seconds, hence, making them wake up.
 <!-- > <img src="https://ibb.co/R2Pc6fg" alt=""  width="300"/>  > <img src="i2.png" alt=""  width="300"/> -->
 
 > <a href="https://ibb.co/R2Pc6fg"><img src="https://i.ibb.co/rkMHpYQ/i1.png" alt="i1" border="0" width="300"></a>
@@ -36,12 +37,3 @@
 
 
 
-
-### Specs
-
-
-```javascript
-export async function () {
-  return null
-}
-```
